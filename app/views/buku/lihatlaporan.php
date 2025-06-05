@@ -67,8 +67,7 @@
     <!-- Each sheet element should have the class "sheet" -->
     <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
     <section class="sheet padding-15mm">
-        <h1 class="center" style="text-decoration: underline;margin-top: 20px;"><?= $data['title']
-                                                                                ?></h1>
+        <h1 class="center" style="text-decoration: underline;margin-top: 20px;"><?= $data['title']                                                                               ?></h1>
         <table class="table">
             <thead>
                 <tr>
@@ -91,8 +90,9 @@
                         <td><?= $row['pengarang']; ?></td>
                         <td><?= $row['tahun']; ?></td>
                         <td>
-                            <div class="badge badge-warning"><?=
-                                                                $row['nama_kategori']; ?></div>
+                            <div class="badge badge-warning">
+                                <?= $row['nama_kategori']; ?>
+                            </div>
                         </td>
                         <td><?= $row['harga']; ?></td>
                     </tr>

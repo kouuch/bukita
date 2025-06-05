@@ -1,7 +1,7 @@
 <?php
 class Kategori extends Controller
 {
-     public function __construct()
+    public function __construct()
         {
         if($_SESSION['session_login'] != 'sudah_login') {
         Flasher::setMessage('Login','Tidak ditemukan.','danger');
@@ -9,19 +9,17 @@ class Kategori extends Controller
         exit;
         }
     }
-    
     public function index()
     {
         $data['title'] = 'Data Kategori';
         $data['kategori'] = $this->model('KategoriModel')->getAllKategori();
+        $this->view('templates/head', $data);
         $this->view('templates/header', $data);
         $this->view('templates/sidebar', $data);
         $this->view('kategori/index', $data);
         $this->view('templates/footer');
     }
-
-    public function cari()
-    {
+    public function cari() {
         $data['title'] = 'Data Kategori';
         $data['kategori'] = $this->model('KategoriModel')->cariKategori();
         $data['key'] = $_POST['key'];
@@ -34,6 +32,7 @@ class Kategori extends Controller
     {
         $data['title'] = 'Detail Kategori';
         $data['kategori'] = $this->model('KategoriModel')->getKategoriById($id);
+        $this->view('templates/head', $data);
         $this->view('templates/header', $data);
         $this->view('templates/sidebar', $data);
         $this->view('kategori/edit', $data);
@@ -42,6 +41,7 @@ class Kategori extends Controller
     public function tambah()
     {
         $data['title'] = 'Tambah Kategori';
+        $this->view('templates/head', $data);
         $this->view('templates/header', $data);
         $this->view('templates/sidebar', $data);
         $this->view('kategori/create', $data);
@@ -54,7 +54,7 @@ class Kategori extends Controller
             header('location: ' . base_url . '/kategori');
             exit;
         } else {
-            Flasher::setMessage('Gagal', 'di tambahkan', 'danger');
+            Flasher::setMessage('Gagal', 'ditambahkan', 'danger');
             header('location: ' . base_url . '/kategori');
             exit;
         }

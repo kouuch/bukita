@@ -11,10 +11,10 @@ class BukuModel
 
     public function getAllBuku()
     {
-        $this->db->query("SELECT buku.*, kategori.nama_kategori FROM " . $this->table . " JOIN kategori ON
-            kategori.id = buku.kategori_id");
+        $this->db->query('SELECT buku.*, kategori.nama_kategori FROM ' . $this->table . ' JOIN kategori ON kategori.id = buku.kategori_id');
         return $this->db->resultSet();
     }
+
 
     public function tambahBuku($data)
     {
@@ -31,17 +31,17 @@ class BukuModel
         return $this->db->rowCount();
     }
 
-    public function getBukuById($id)
+
+    public function getKategoriById($id)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
-    public function updateDataBuku($data)
+    public function updateDataKategori($data)
     {
         $query = "UPDATE buku SET judul=:judul, penerbit=:penerbit, pengarang=:pengarang, tahun=:tahun,kategori_id=:kategori_id, harga=:harga WHERE id=:id";
-
         $this->db->query($query);
         $this->db->bind('id', $data['id']);
         $this->db->bind('judul', $data['judul']);
@@ -51,23 +51,21 @@ class BukuModel
         $this->db->bind('kategori_id', $data['kategori_id']);
         $this->db->bind('harga', $data['harga']);
         $this->db->execute();
-
         return $this->db->rowCount();
     }
 
-    public function deleteBuku($id)
+    public function deleteKategori($id)
     {
         $this->db->query('DELETE FROM ' . $this->table . ' WHERE id=:id');
         $this->db->bind('id', $id);
         $this->db->execute();
-
         return $this->db->rowCount();
     }
 
-    public function cariBuku()
+    public function cariKategori()
     {
         $key = $_POST['key'];
-        $this->db->query("SELECT * FROM " . $this->table . " WHERE judul LIKE :key");
+        $this->db->query("SELECT * FROM " . $this->table . " WHERE nama_kategori LIKE :key");
         $this->db->bind('key', "%$key%");
         return $this->db->resultSet();
     }

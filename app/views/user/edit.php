@@ -18,7 +18,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" action="<?= base_url; ?>/user/updateUser" method="POST"
+            <form role="form" action="<?=base_url;?>/user/updateUser" method="POST"
                 enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?= $data['user']['id']; ?>">
                 <div class="card-body">
@@ -36,8 +36,7 @@
                     </blockquote>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="masukkan
-password..." name="password">
+                        <input type="password" class="form-control" placeholder="masukkan password..." name="password">
                     </div>
                     <div class="form-group">
                         <label>Ulangi Password</label>

@@ -2,28 +2,29 @@
 class Buku extends Controller
 {
     public function __construct()
-        {
-        if($_SESSION['session_login'] != 'sudah_login') {
-        Flasher::setMessage('Login','Tidak ditemukan.','danger');
-        header('location: '. base_url . '/login');
-        exit;
+    {
+        if ($_SESSION['session_login'] != 'sudah_login') {
+            Flasher::setMessage('Login', 'Tidak ditemukan.', 'danger');
+            header('location: ' . base_url . '/login');
+            exit;
         }
     }
     public function index()
     {
         $data['title'] = 'Data Buku';
-        $data[ 'buku'] = $this->model('BukuModel')->getAllBuku();
-        $this ->view('templates/header', $data);
-        $this ->view('templates/sidebar', $data);
-        $this ->view('buku/index', $data);
-        $this ->view('templates/footer');
+        $data['buku'] = $this->model('BukuModel')->getAllBuku();
+        $this->view('templates/head', $data);
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar', $data);
+        $this->view('buku/index', $data);
+        $this->view('templates/footer');
     }
-
     public function cari()
     {
-        $data['title'] = 'Data Kategori';
-        $data['kategori'] = $this->model('KategoriModel')->cariKategori();
+        $data['title'] = 'Data Buku';
+        $data['buku'] = $this->model('BukuModel')->cariKategori();
         $data['key'] = $_POST['key'];
+        $this->view('templates/head', $data);
         $this->view('templates/header', $data);
         $this->view('templates/sidebar', $data);
         $this->view('kategori/index', $data);
@@ -32,21 +33,23 @@ class Buku extends Controller
     public function edit($id)
     {
         $data['title'] = 'Detail Buku';
-        $data['kategori'] = $this->model('KategoriModel')->getAllKategori();
+        $data['kategori'] = $this->model('BukuModel')->getKategoriById($id);
         $data['buku'] = $this->model('BukuModel')->getBukuById($id);
+        $this->view('templates/head', $data);
         $this->view('templates/header', $data);
         $this->view('templates/sidebar', $data);
-        $this->view('buku/edit', $data);
+        $this->view('kategori/edit', $data);
         $this->view('templates/footer');
     }
     public function tambah()
     {
         $data['title'] = 'Tambah Buku';
-        $data[ 'kategori'] = $this ->model('KategoriModel')->getAllKategori();
-        $this ->view('templates/header', $data);
-        $this ->view('templates/sidebar', $data);
-        $this ->view('buku/create', $data);
-        $this ->view('templates/footer');
+        $data['kategori'] = $this->model('KategoriModel')->getAllKategori();
+        $this->view('templates/head', $data);
+        $this->view('templates/header', $data);
+        $this->view('templates/sidebar', $data);
+        $this->view('buku/create', $data);
+        $this->view('templates/footer');
     }
     public function simpanBuku()
     {
@@ -60,27 +63,27 @@ class Buku extends Controller
             exit;
         }
     }
-    public function updateBuku()
+    public function updateKategori()
     {
-        if ($this->model('BukuModel')->updateDataBuku($_POST) > 0) {
+        if ($this->model('BukuModel')->updateDataKategori($_POST) > 0) {
             Flasher::setMessage('Berhasil', 'diupdate', 'success');
-            header('location: ' . base_url . '/buku');
+            header('location: ' . base_url . '/kategori');
             exit;
         } else {
             Flasher::setMessage('Gagal', 'diupdate', 'danger');
-            header('location: ' . base_url . '/buku');
+            header('location: ' . base_url . '/kategori');
             exit;
         }
     }
     public function hapus($id)
     {
-        if ($this->model('BukuModel')->deleteBuku($id) > 0) {
+        if ($this->model('BukuModel')->deleteKategori($id) > 0) {
             Flasher::setMessage('Berhasil', 'dihapus', 'success');
-            header('location: ' . base_url . '/buku');
+            header('location: ' . base_url . '/kategori');
             exit;
         } else {
             Flasher::setMessage('Gagal', 'dihapus', 'danger');
-            header('location: ' . base_url . '/buku');
+            header('location: ' . base_url . '/kategori');
             exit;
         }
     }
@@ -90,17 +93,14 @@ class Buku extends Controller
         $data['buku'] = $this->model('BukuModel')->getAllBuku();
         $this->view('buku/lihatlaporan', $data);
     }
+
     public function laporan()
     {
         $data['buku'] = $this->model('BukuModel')->getAllBuku();
         $pdf = new FPDF('p', 'mm', 'A4');
-        // membuat halaman baru
         $pdf->AddPage();
-        // setting jenis font yang akan digunakan
         $pdf->SetFont('Arial', 'B', 14);
-        // mencetak string
         $pdf->Cell(190, 7, 'LAPORAN BUKU', 0, 1, 'C');
-        // Memberikan space kebawah agar tidak terlalu rapat
         $pdf->Cell(10, 7, '', 0, 1);
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(85, 6, 'JUDUL', 1);
@@ -120,5 +120,4 @@ class Buku extends Controller
         }
         $pdf->Output('D', 'Laporan Buku.pdf', true);
     }
-    
 }

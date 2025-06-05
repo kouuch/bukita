@@ -1,42 +1,50 @@
 <?php
-class UserModel {
+class UserModel
+{
     private $table = 'user';
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database;
     }
 
-    public function getAllUser() {
+    public function getAllUser()
+    {
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->resultSet();
     }
 
-    public function getUserById($id) {
+    public function getUserById($id)
+    {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id = :id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
-    public function tambahUser($data) {
+    public function tambahUser($data)
+    {
         $query = "INSERT INTO user (nama, username, password) VALUES(:nama, :username, :password)";
         $this->db->query($query);
         $this->db->bind('nama', $data['nama']);
         $this->db->bind('username', $data['username']);
-        $this->db->bind('password', md5($data['password']));
+        $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
         $this->db->execute();
         return $this->db->rowCount();
     }
 
-    public function cekUsername() {
+
+    public function cekUsername()
+    {
         $username = $_POST['username'];
         $this->db->query("SELECT * FROM user WHERE username = :username");
         $this->db->bind('username', $username);
         return $this->db->single();
     }
 
-    public function updateDataUser($data) {
-        if (empty($_POST['password'])) {
+    public function updateDataUser($data)
+    {
+        if (empty($data['password'])) {
             $query = "UPDATE user SET nama = :nama WHERE id = :id";
             $this->db->query($query);
             $this->db->bind('id', $data['id']);
@@ -46,20 +54,23 @@ class UserModel {
             $this->db->query($query);
             $this->db->bind('id', $data['id']);
             $this->db->bind('nama', $data['nama']);
-            $this->db->bind('password', md5($data['password']));
+            $this->db->bind('password', password_hash($data['password'], PASSWORD_DEFAULT));
         }
         $this->db->execute();
         return $this->db->rowCount();
     }
 
-    public function deleteUser($id) {
+
+    public function deleteUser($id)
+    {
         $this->db->query('DELETE FROM ' . $this->table . ' WHERE id = :id');
         $this->db->bind('id', $id);
         $this->db->execute();
         return $this->db->rowCount();
     }
 
-    public function cariUser() {
+    public function cariUser()
+    {
         $key = $_POST['key'];
         $this->db->query("SELECT * FROM " . $this->table . " WHERE nama LIKE :key");
         $this->db->bind('key', "%$key%");

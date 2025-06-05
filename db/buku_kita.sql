@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 26, 2025 at 04:29 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Jun 05, 2025 at 04:57 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,25 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `buku` (
-  `id` int(11) NOT NULL,
-  `judul` varchar(100) NOT NULL,
-  `penerbit` varchar(50) NOT NULL,
-  `pengarang` varchar(50) NOT NULL,
-  `tahun` varchar(4) NOT NULL,
-  `kategori_id` int(11) DEFAULT NULL,
-  `harga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id` int NOT NULL,
+  `judul` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `penerbit` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `pengarang` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `tahun` varchar(4) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `kategori_id` int DEFAULT NULL,
+  `harga` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `buku`
 --
 
 INSERT INTO `buku` (`id`, `judul`, `penerbit`, `pengarang`, `tahun`, `kategori_id`, `harga`) VALUES
-(0, 'doreamon', 'nobita', 'naruto', '2020', 3, 30000),
-(1, 'Danur', 'Gramedia', 'Risa Saraswati', '2018', 2, 50000),
-(2, 'Kisah Tanah Dayak', 'Loko Media', 'Aditya Harlan', '2004', 2, 50000),
-(3, 'Naruto Episode 2999', 'Gramedia', 'Kishimoto', '2019', 3, 50000),
-(4, 'Naruto Episode 4000', 'Gramedia', 'Udin', '2020', 3, 50000);
+(1, 'Pemrograman PHP', 'Elex Media', 'Budi Santoso', '2020', 2, 150000),
+(2, 'Sejarah Indonesia', 'Pustaka Sejarah	', 'Agus Santoso', '2018', 3, 120000);
 
 -- --------------------------------------------------------
 
@@ -55,18 +52,18 @@ INSERT INTO `buku` (`id`, `judul`, `penerbit`, `pengarang`, `tahun`, `kategori_i
 --
 
 CREATE TABLE `kategori` (
-  `id` int(11) NOT NULL,
-  `nama_kategori` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id` int NOT NULL,
+  `nama_kategori` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
-(1, 'Novel'),
-(2, 'Horor'),
-(3, 'Anime');
+(2, 'Teknologi'),
+(3, 'Sejarah'),
+(4, 'Pendidikan');
 
 -- --------------------------------------------------------
 
@@ -75,18 +72,19 @@ INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(50) DEFAULT NULL,
-  `username` varchar(25) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id` int NOT NULL,
+  `nama` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `username` varchar(25) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
-(0, 'MUHAMMAD FADILAH', 'keylion', '5f4dcc3b5aa765d61d8327deb882cf99');
+(1, 'Administrator', 'admin', '$2y$10$h67St0VPY.L7mF1ix2ev5.XIC8c/K2.yqzsWQkHFa2h6JqGnQ93Qm'),
+(2, 'MUHAMMAD RIFKY IRSADA', 'kyy', '$2y$10$CKLgjV3DV9pBKfWuZmosleV5C0sdzNaofGO7Il.otaw5VYnBaTzXa');
 
 --
 -- Indexes for dumped tables
@@ -110,6 +108,39 @@ ALTER TABLE `kategori`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `buku`
+--
+ALTER TABLE `buku`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `buku`
+--
+ALTER TABLE `buku`
+  ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`),
+  ADD CONSTRAINT `fk_buku_kategori` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

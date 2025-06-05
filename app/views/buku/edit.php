@@ -34,8 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label>Pengarang</label>
-                        <input type="text" class="form-control" placeholder="masukkan pengarang
-buku..." name="pengarang" value="<?= $data['buku']['pengarang']; ?>">
+                        <input type="text" class="form-control" placeholder="masukkan pengarang buku..." name="pengarang" value="<?= $data['buku']['pengarang']; ?>">
                     </div>
                     <div class="form-group">
                         <label>Tahun</label>
@@ -47,12 +46,17 @@ buku..." name="pengarang" value="<?= $data['buku']['pengarang']; ?>">
                         <select class="form-control" name="kategori_id">
                             <option value="">Pilih</option>
                             <?php foreach ($data['kategori'] as $row) : ?>
-                                <option value="<?= $row['id']; ?>" <?php if (
-                                                                        $data['buku']['kategori_id'] ==
-                                                                        $row['id']
-                                                                    ) {
-                                                                        echo "selected";
-                                                                    } ?>><?= $row['nama_kategori']; ?></option>
+                                <option value="<?= $row['id']; ?>"
+                                    <?php
+                                    if (
+                                        $data['buku']['kategori_id'] ==
+                                        $row['id']
+                                    ) {
+                                        echo "selected";
+                                    } ?>
+                                    >
+                                    <?= $row['nama_kategori']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>

@@ -10,7 +10,6 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="row">
@@ -18,7 +17,6 @@
                 <?php Flasher::Message(); ?>
             </div>
         </div>
-
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -39,7 +37,6 @@
                         </div>
                     </div>
                 </form>
-
                 <table class="table table-bordered">
                     <thead>
                         <tr>

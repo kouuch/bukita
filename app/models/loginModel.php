@@ -9,14 +9,14 @@ class LoginModel
     }
     public function checkLogin($data)
     {
-        $query = "SELECT * FROM user WHERE username = :username AND password =
-
-:password";
-
+        $query = "SELECT * FROM user WHERE username = :username";
         $this->db->query($query);
         $this->db->bind('username', $data['username']);
-        $this->db->bind('password', md5($data['password']));
-        $data = $this->db->single();
-        return $data;
+        $user = $this->db->single();
+
+        if ($user && password_verify($data['password'], $user['password'])) {
+            return $user;
+        }
+        return false;
     }
 }

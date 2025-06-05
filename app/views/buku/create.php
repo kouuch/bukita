@@ -18,28 +18,23 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" action="<?= base_url; ?>/buku/simpanbuku" method="POST"
-                enctype="multipart/form-data">
+            <form role="form" action="<?= base_url; ?>/buku/simpanbuku" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="form-group">
                         <label>Judul</label>
-                        <input type="text" class="form-control" placeholder="masukkan judul buku..."
-                            name="judul">
+                        <input type="text" class="form-control" placeholder="masukkan judul buku..."name="judul">
                     </div>
                     <div class="form-group">
                         <label>Penerbit</label>
-                        <input type="text" class="form-control" placeholder="masukkan penerbit buku..."
-                            name="penerbit">
+                        <input type="text" class="form-control" placeholder="masukkan penerbit buku..."name="penerbit">
                     </div>
                     <div class="form-group">
                         <label>Pengarang</label>
-                        <input type="text" class="form-control" placeholder="masukkan pengarang
-buku..." name="pengarang">
+                        <input type="text" class="form-control" placeholder="masukkan pengarangbuku..." name="pengarang">
                     </div>
                     <div class="form-group">
                         <label>Tahun</label>
-                        <input type="text" class="form-control" placeholder="masukkan tahun buku..."
-                            name="tahun">
+                        <input type="text" class="form-control" placeholder="masukkan tahun buku..."name="tahun">
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>

@@ -25,7 +25,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form" action="<?= base_url; ?>/user/simpanuser" method="POST"
+            <form role="form" action="<?=base_url;?>/user/simpanuser" method="POST"
                 enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="form-group">
@@ -40,8 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="masukkan
-password..." name="password">
+                        <input type="password" class="form-control" placeholder="masukkan password..." name="password">
                     </div>
                     <div class="form-group">
                         <label>Ulangi Password</label>

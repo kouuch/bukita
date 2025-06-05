@@ -20,7 +20,6 @@ class Database
             die($e->getMessage());
         }
     }
-
     public function query($query)
     {
         $this->stmt = $this->dbh->prepare($query);
